@@ -1,24 +1,23 @@
 import { InlineCode } from "@/once-ui/components";
 
 const person = {
-  firstName: "Selene",
-  lastName: "Yu",
+  firstName: "Nyxx",
+  lastName: "Intel",
   get name() {
     return `${this.firstName} ${this.lastName}`;
   },
-  role: "Design Engineer",
-  avatar: "/images/avatar.jpg",
-  location: "Asia/Jakarta", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-  languages: ["English", "Bahasa"], // optional: Leave the array empty if you don't want to display languages
+  role: "Mastering the Unknowns with NyxxIntel",
+  avatar: "/images/android-chrome-192x192.png",
+  location: "Asia/Kolkata", 
+  languages: [], 
 };
 
 const newsletter = {
   display: true,
-  title: <>Subscribe to {person.firstName}'s Newsletter</>,
+  title: <>Subscribe to {person.firstName} {person.lastName}'s Newsletter</>,
   description: (
     <>
-      I occasionally write about design, technology, and share thoughts on the intersection of
-      creativity and engineering.
+      We occasionally write about threat Intelligence share thoughts on upcoming cybersecurity news.
     </>
   ),
 };
@@ -44,26 +43,26 @@ const social = [
   {
     name: "Email",
     icon: "email",
-    link: "mailto:example@gmail.com",
+    link: "nyxxintel@gmail.com",
   },
 ];
 
 const home = {
   label: "Home",
-  title: `${person.name}'s Portfolio`,
-  description: `Portfolio website showcasing my work as a ${person.role}`,
-  headline: <>Design engineer and builder</>,
+  title: `${person.name}`,
+  description: `Mastering the Unknowns with NyxxIntel`,
+  headline: <>Mastering the Unknowns with NyxxIntel</>,
   subline: (
     <>
-      I'm Selene, a design engineer at <InlineCode>FLY</InlineCode>, where I craft intuitive
-      <br /> user experiences. After hours, I build my own projects.
+      We offer a robust suite of <InlineCode>Threat Intelligence</InlineCode> solutions designed to protect organizations from today's complex and evolving cyber threats. Through real-time intelligence feeds, dark web monitoring, attack surface management, and third-party risk assessments, we enable proactive detection and mitigation of emerging risks.
+      <br /> Our services monitor illicit online communities, digital assets, and vendor ecosystems to uncover stolen data, vulnerabilities, and potential attack vectors before they can be exploited. Stay Ahead of Threats, and Secure What Matters Most.
     </>
   ),
 };
 
 const about = {
   label: "About",
-  title: "About me",
+  title: "About us",
   description: `Meet ${person.name}, ${person.role} from ${person.location}`,
   tableOfContent: {
     display: true,
@@ -81,53 +80,57 @@ const about = {
     title: "Introduction",
     description: (
       <>
-        Selene is a Jakarta-based design engineer with a passion for transforming complex challenges
-        into simple, elegant design solutions. Her work spans digital interfaces, interactive
-        experiences, and the convergence of design and technology.
+        To empower organizations with actionable threat intelligence, enabling proactive defense strategies, reducing risk, 
+        and safeguarding digital assets from evolving cyber threats. To be the global leader in cybersecurity threat intelligence, 
+        transforming the way businesses understand, anticipate, and combat cyber risks. Our goal is to foster a more secure digital ecosystem,
+        enabling organizations to operate with confidence and resilience.
       </>
     ),
   },
-  work: {
+  servicesWeOffer: {
     display: true, // set to false to hide this section
-    title: "Work Experience",
+    title: "Services We Offer",
     experiences: [
       {
-        company: "FLY",
-        timeframe: "2022 - Present",
-        role: "Senior Design Engineer",
+        company: "Threat Intelligence Feeds",
+        timeframe: "",
+        role: "",
         achievements: [
           <>
-            Redesigned the UI/UX for the FLY platform, resulting in a 20% increase in user
-            engagement and 30% faster load times.
-          </>,
-          <>
-            Spearheaded the integration of AI tools into design workflows, enabling designers to
-            iterate 50% faster.
+            Real-time, actionable threat intelligence on emerging cyber threats, vulnerabilities, and attack tactics.
           </>,
         ],
         images: [
           // optional: leave the array empty if you don't want to display images
-          {
-            src: "/images/projects/project-01/cover-01.jpg",
-            alt: "Once UI Project",
-            width: 16,
-            height: 9,
-          },
+          // {
+          //   src: "/images/projects/project-01/cover-01.jpg",
+          //   alt: "Once UI Project",
+          //   width: 16,
+          //   height: 9,
+          // },
         ],
       },
       {
-        company: "Creativ3",
-        timeframe: "2018 - 2022",
-        role: "Lead Designer",
+        company: "Geopolitical-Cyber Threat Insights",
+        timeframe: "",
+        role: "",
         achievements: [
           <>
-            Developed a design system that unified the brand across multiple platforms, improving
-            design consistency by 40%.
+            In-depth analysis of the intersection between geopolitical events and cyber threats, including region-specific risks.
           </>,
+          
+        ],
+        images: [],
+      },
+      {
+        company: "Managed Threat Intelligence Platform (TIP)",
+        timeframe: "",
+        role: "",
+        achievements: [
           <>
-            Led a cross-functional team to launch a new product line, contributing to a 15% increase
-            in overall company revenue.
+            A comprehensive platform that centralizes threat intelligence, integrates with existing security tools, and automates threat response.
           </>,
+          
         ],
         images: [],
       },
@@ -195,7 +198,7 @@ const blog = {
   // All posts will be listed on the /blog route
 };
 
-const work = {
+const servicesWeOffer = {
   label: "Work",
   title: "My projects",
   description: `Design and dev projects by ${person.name}`,
@@ -282,4 +285,4 @@ const gallery = {
   ],
 };
 
-export { person, social, newsletter, home, about, blog, work, gallery };
+export { person, social, newsletter, home, about, blog, servicesWeOffer, gallery };

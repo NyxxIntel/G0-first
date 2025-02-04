@@ -52,20 +52,20 @@ export default function About() {
       items: [],
     },
     {
-      title: about.work.title,
-      display: about.work.display,
-      items: about.work.experiences.map((experience) => experience.company),
+      title: about.servicesWeOffer.title,
+      display: about.servicesWeOffer.display,
+      items: about.servicesWeOffer.experiences.map((experience) => experience.company),
     },
-    {
-      title: about.studies.title,
-      display: about.studies.display,
-      items: about.studies.institutions.map((institution) => institution.name),
-    },
-    {
-      title: about.technical.title,
-      display: about.technical.display,
-      items: about.technical.skills.map((skill) => skill.title),
-    },
+    // {
+    //   title: about.studies.title,
+    //   display: about.studies.display,
+    //   items: about.studies.institutions.map((institution) => institution.name),
+    // },
+    // {
+    //   title: about.technical.title,
+    //   display: about.technical.display,
+    //   items: about.technical.skills.map((skill) => skill.title),
+    // },
   ];
   return (
     <Column maxWidth="m">
@@ -86,7 +86,7 @@ export default function About() {
               .map((item) => item.link),
             worksFor: {
               "@type": "Organization",
-              name: about.work.experiences[0].company || "",
+              name: about.servicesWeOffer.experiences[0].company || "",
             },
           }),
         }}
@@ -209,13 +209,13 @@ export default function About() {
             </Column>
           )}
 
-          {about.work.display && (
+          {about.servicesWeOffer.display && (
             <>
-              <Heading as="h2" id={about.work.title} variant="display-strong-s" marginBottom="m">
-                {about.work.title}
+              <Heading as="h2" id={about.servicesWeOffer.title} variant="display-strong-s" marginBottom="m">
+                {about.servicesWeOffer.title}
               </Heading>
               <Column fillWidth gap="l" marginBottom="40">
-                {about.work.experiences.map((experience, index) => (
+                {about.servicesWeOffer.experiences.map((experience, index) => (
                   <Column key={`${experience.company}-${experience.role}-${index}`} fillWidth>
                     <Flex fillWidth horizontal="space-between" vertical="end" marginBottom="4">
                       <Text id={experience.company} variant="heading-strong-l">
@@ -271,7 +271,7 @@ export default function About() {
             </>
           )}
 
-          {about.studies.display && (
+          {/* {about.studies.display && (
             <>
               <Heading as="h2" id={about.studies.title} variant="display-strong-s" marginBottom="m">
                 {about.studies.title}
@@ -289,9 +289,9 @@ export default function About() {
                 ))}
               </Column>
             </>
-          )}
+          )} */}
 
-          {about.technical.display && (
+          {/* {about.technical.display && (
             <>
               <Heading
                 as="h2"
@@ -338,7 +338,7 @@ export default function About() {
                 ))}
               </Column>
             </>
-          )}
+          )} */}
         </Column>
       </Flex>
     </Column>
