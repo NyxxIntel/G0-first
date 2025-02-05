@@ -25,26 +25,26 @@ const newsletter = {
 const social = [
   // Links are automatically displayed.
   // Import new icons in /once-ui/icons.ts
-  {
-    name: "GitHub",
-    icon: "github",
-    link: "https://github.com/NyxxIntel",
-  },
+  // {
+  //   name: "GitHub",
+  //   icon: "github",
+  //   link: "https://github.com/NyxxIntel",
+  // },
   {
     name: "LinkedIn",
     icon: "linkedin",
     link: "https://www.linkedin.com/in/nyxx-intel-01351034b/",
   },
-  {
-    name: "X",
-    icon: "x",
-    link: "",
-  },
-  {
-    name: "Email",
-    icon: "email",
-    link: "nyxxintel@gmail.com",
-  },
+  // {
+  //   name: "X",
+  //   icon: "x",
+  //   link: "",
+  // },
+  // {
+  //   name: "Email",
+  //   icon: "email",
+  //   link: "nyxxintel@gmail.com",
+  // },
 ];
 
 const home = {
