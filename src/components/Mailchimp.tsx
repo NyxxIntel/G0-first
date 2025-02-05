@@ -21,21 +21,7 @@ export const Mailchimp = ({ newsletter }: { newsletter: NewsletterProps }) => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setEmail(value);
-
-    // Validate while typing
-    if (value && !validateEmail(value)) {
-      setError("Please enter a valid email address.");
-    } else {
-      setError("");
-    }
-  };
-
-  const handleBlur = () => {
-    if (email && !validateEmail(email)) {
-      setError("Please enter a valid email address.");
-    }
+    setEmail(e.target.value); // ✅ Just update the value without validation
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -43,6 +29,7 @@ export const Mailchimp = ({ newsletter }: { newsletter: NewsletterProps }) => {
     setError("");
     setSuccess("");
 
+    // ✅ Validate only when the form is submitted
     if (!validateEmail(email)) {
       setError("Please enter a valid email address.");
       return;
@@ -129,9 +116,11 @@ export const Mailchimp = ({ newsletter }: { newsletter: NewsletterProps }) => {
           opacity: mailchimp.effects.lines.opacity as any,
         }}
       />
+
       <Heading style={{ position: "relative" }} marginBottom="s" variant="display-strong-xs">
         {newsletter.title}
       </Heading>
+
       <Text
         style={{
           position: "relative",
@@ -143,15 +132,24 @@ export const Mailchimp = ({ newsletter }: { newsletter: NewsletterProps }) => {
       >
         {newsletter.description}
       </Text>
+
       <form
         style={{
           width: "100%",
           display: "flex",
-          justifyContent: "center",
+          flexDirection: "column", // ✅ Stack items vertically
+          alignItems: "center",
         }}
         onSubmit={handleSubmit}
       >
-        <Flex id="mc_embed_signup_scroll" fillWidth maxWidth={24} gap="8">
+        <Flex
+          id="mc_embed_signup_scroll"
+          fillWidth
+          maxWidth={24}
+          gap="8"
+          direction="column" // ✅ Stack vertically
+          align="center"
+        >
           <Input
             formNoValidate
             labelAsPlaceholder
@@ -160,18 +158,14 @@ export const Mailchimp = ({ newsletter }: { newsletter: NewsletterProps }) => {
             type="email"
             label="Email"
             required
-            value={email} // ✅ Binding value to state
-            onChange={handleChange} // ✅ Immediate reflection of typed value
-            onBlur={handleBlur}
+            value={email}
+            onChange={handleChange} // ✅ Only updates value, no validation
             errorMessage={error}
           />
-          <div className="clear">
-            <Flex height="48" vertical="center">
-              <Button type="submit" id="mc-embedded-subscribe" value="Subscribe" size="m" fillWidth>
-                Subscribe
-              </Button>
-            </Flex>
-          </div>
+
+          <Button type="submit" id="mc-embedded-subscribe" value="Subscribe" size="m" fillWidth>
+            Subscribe
+          </Button>
         </Flex>
       </form>
 
@@ -186,6 +180,7 @@ export const Mailchimp = ({ newsletter }: { newsletter: NewsletterProps }) => {
           {error}
         </Text>
       )}
+
       {success && (
         <Text
           style={{

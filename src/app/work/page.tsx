@@ -2,11 +2,11 @@ import { getPosts } from "@/app/utils/utils";
 import { Column } from "@/once-ui/components";
 import { Projects } from "@/components/work/Projects";
 import { baseURL } from "@/app/resources";
-import { person, work } from "@/app/resources/content";
+import { person, servicesWeOffer } from "@/app/resources/content";
 
 export async function generateMetadata() {
-  const title = work.title;
-  const description = work.description;
+  const title = servicesWeOffer.title;
+  const description = servicesWeOffer.description;
   const ogImage = `https://${baseURL}/og?title=${encodeURIComponent(title)}`;
 
   return {
@@ -45,8 +45,8 @@ export default function Work() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "CollectionPage",
-            headline: work.title,
-            description: work.description,
+            headline: servicesWeOffer.title,
+            description: servicesWeOffer.description,
             url: `https://${baseURL}/projects`,
             image: `${baseURL}/og?title=Design%20Projects`,
             author: {
