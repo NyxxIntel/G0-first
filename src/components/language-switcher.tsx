@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { parseCookies, setCookie } from "nookies";
 import { Globe } from "lucide-react";
-import { Button, Flex } from "@/once-ui/components"; // Importing UI components
+import { Button, Flex } from "@/once-ui/components"; // Import UI components
 
 const COOKIE_NAME = "googtrans";
 
@@ -24,7 +24,8 @@ declare global {
 const LanguageSwitcher = () => {
   const [currentLanguage, setCurrentLanguage] = useState<string>();
   const [languageConfig, setLanguageConfig] = useState<any>();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Dropdown toggle state
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!window.__GOOGLE_TRANSLATION_CONFIG__) return;
@@ -51,23 +52,38 @@ const LanguageSwitcher = () => {
     setLanguageConfig(window.__GOOGLE_TRANSLATION_CONFIG__);
   }, []);
 
+  useEffect(() => {
+    // Close dropdown when clicking outside
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   if (!currentLanguage || !languageConfig) {
     return null;
   }
 
   const switchLanguage = (lang: string) => {
     setCookie(null, COOKIE_NAME, `/auto/${lang}`);
-    window.location.reload();
+    setIsDropdownOpen(false); // Close dropdown smoothly
+    setTimeout(() => {
+      window.location.reload();
+    }, 200);
   };
 
   return (
-    <div className="relative">
-      {/* Dropdown Button */}
+    <div className="relative inline-block" ref={dropdownRef}>
+      {/* Button that toggles dropdown */}
       <Button
         size="s"
         style={{
           background: "transparent",
-          border: "1px solid #ccc",
+          border: "2px solid #ccc",
           padding: "6px 12px",
           color: "#fff",
           display: "flex",
@@ -75,6 +91,7 @@ const LanguageSwitcher = () => {
           cursor: "pointer",
           borderRadius: "6px",
           gap: "8px",
+          transition: "all 0.3s ease",
         }}
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
       >
@@ -82,17 +99,29 @@ const LanguageSwitcher = () => {
         {currentLanguage.toUpperCase()}
       </Button>
 
-      {/* Dropdown List */}
+      {/* Dropdown Menu - Absolutely positioned */}
       {isDropdownOpen && (
-        <div className="absolute right-0 mt-2 w-36 bg-gray-800 border border-gray-600 rounded-md shadow-lg z-50">
+        <div
+          className="absolute right-0 mt-2 w-40 bg-gray-900 border border-gray-700 rounded-lg shadow-lg z-50"
+          style={{
+            position: "absolute",
+            top: "100%",
+            right: 0,
+            width: "150px",
+            background: "#1a1a1a",
+            borderRadius: "6px",
+            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+          }}
+        >
           {languageConfig.languages.map((ld: LanguageDescriptor) => (
-            <button
+            <div
               key={ld.name}
               onClick={() => switchLanguage(ld.name)}
-              className="block w-full text-left px-4 py-2 text-white hover:bg-gray-700"
+              className="px-4 py-2 text-white hover:bg-gray-700 cursor-pointer rounded-md text-center"
+              style={{ padding: "8px", fontSize: "14px", cursor: "pointer" }}
             >
               {ld.title}
-            </button>
+            </div>
           ))}
         </div>
       )}
