@@ -2,6 +2,7 @@ import "@/once-ui/styles/index.scss";
 import "@/once-ui/tokens/index.scss";
 
 import classNames from "classnames";
+import Script from "next/script"; // Import Script for external JS
 
 import { Footer, Header, RouteGuard } from "@/components";
 import { baseURL, effects, style } from "@/app/resources";
@@ -49,14 +50,8 @@ type FontConfig = {
   variable: string;
 };
 
-/*
-	Replace with code for secondary and tertiary fonts
-	from https://once-ui.com/customize
-*/
 const secondary: FontConfig | undefined = undefined;
 const tertiary: FontConfig | undefined = undefined;
-/*
- */
 
 const code = Source_Code_Pro({
   variable: "--font-code",
@@ -87,9 +82,19 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         primary.variable,
         secondary ? secondary.variable : "",
         tertiary ? tertiary.variable : "",
-        code.variable,
+        code.variable
       )}
     >
+      <head>
+        {/* Google Translate & Language Config Scripts */}
+        <Script src="/assets/lang-config.js" strategy="beforeInteractive" />
+        <Script src="/assets/translation.js" strategy="beforeInteractive" />
+        <Script
+          src="//translate.google.com/translate_a/element.js?cb=TranslateInit"
+          strategy="afterInteractive"
+        />
+      </head>
+
       <ToastProvider>
         <Column style={{ minHeight: "100vh" }} as="body" fillWidth margin="0" padding="0">
           <Background
@@ -141,15 +146,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           />
           <Flex fillWidth minHeight="16"></Flex>
           <Header />
-          <Flex
-            position="relative"
-            zIndex={0}
-            fillWidth
-            paddingY="l"
-            paddingX="l"
-            horizontal="center"
-            flex={1}
-          >
+          <Flex position="relative" zIndex={0} fillWidth paddingY="l" paddingX="l" horizontal="center" flex={1}>
             <Flex horizontal="center" fillWidth minHeight="0">
               <RouteGuard>{children}</RouteGuard>
             </Flex>

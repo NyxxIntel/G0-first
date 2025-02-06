@@ -7,6 +7,8 @@ import { baseURL, routes } from "@/app/resources";
 import { home, about, person, newsletter } from "@/app/resources/content";
 import { Mailchimp } from "@/components";
 import { Posts } from "@/components/blog/Posts";
+import Script from "next/script";
+import { LanguageSwitcher } from "@/components/language-switcher";
 
 export async function generateMetadata() {
   const title = home.title;
@@ -40,28 +42,7 @@ export async function generateMetadata() {
 export default function Home() {
   return (
     <Column maxWidth="m" gap="xl" horizontal="center">
-      <script
-        type="application/ld+json"
-        suppressHydrationWarning
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            name: home.title,
-            description: home.description,
-            url: `https://${baseURL}`,
-            image: `${baseURL}/og?title=${encodeURIComponent(home.title)}`,
-            publisher: {
-              "@type": "Person",
-              name: person.name,
-              image: {
-                "@type": "ImageObject",
-                url: `${baseURL}${person.avatar}`,
-              },
-            },
-          }),
-        }}
-      />
+      
       <Column fillWidth paddingY="l" gap="m">
         <Column maxWidth="s">
           <RevealFx translateY="4" fillWidth horizontal="start" paddingBottom="m">
@@ -97,7 +78,7 @@ export default function Home() {
           </RevealFx>
         </Column>
       </Column>
-      
+
       {routes["/blog"] && (
         <Flex fillWidth gap="24" mobileDirection="column">
           <Flex flex={1} paddingLeft="l">

@@ -8,6 +8,7 @@ import styles from "@/components/Header.module.scss";
 
 import { routes, display } from "@/app/resources";
 import { person, home, about, blog, servicesWeOffer, gallery } from "@/app/resources/content";
+import { LanguageSwitcher } from "./language-switcher";
 
 type TimeDisplayProps = {
   timeZone: string;
@@ -154,6 +155,11 @@ export const Header = () => {
             textVariant="body-default-s"
             gap="20"
           >
+        
+        <Flex className="flex items-center">
+      <LanguageSwitcher />
+    </Flex>
+      
             <Flex hide="s">{display.time && <TimeDisplay timeZone={person.location} />}</Flex>
           </Flex>
         </Flex>
