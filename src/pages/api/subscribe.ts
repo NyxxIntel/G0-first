@@ -1,27 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import mongoose from 'mongoose';
 import nodemailer from 'nodemailer';
-
-
-const mongoURI = "mongodb+srv://nyxxintel:FlCuOxSyRxhCx2hX@cluster0.zoatj.mongodb.net/newsletter?retryWrites=true&w=majority&appName=Cluster0";
-
-let isConnected = false;
-
-const connectDB = async () => {
-  if (isConnected) return; // Skip if already connected
-
-  try {
-    await mongoose.connect(mongoURI);
-    isConnected = true;
-    console.log("MongoDB connected successfully");
-  } catch (error) {
-    console.error("MongoDB connection error:", error);
-  }
-};
-
-// Call the function once during the first request
-connectDB();
-
+import { connectDB } from "@/pages/api/db";
 
 const subscriberSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
@@ -33,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method Not Allowed' });
   }
-
+  await connectDB();
   const { email } = req.body;
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -48,20 +28,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     await new Subscriber({ email }).save();
 
-    // const transporter = nodemailer.createTransport({
-    //   service: 'gmail',
-    //   auth: {
-    //     user: 'nyxxintel@gmail.com',  // Replace with your email
-    //     pass: 'hmgc jiky vann tgfo',     // Use App Password (not your main password)
-    //   },
-    // });
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'nyxxintel@gmail.com',  // Replace with your email
+        pass: 'hmgc jiky vann tgfo',     // Use App Password (not your main password)
+      },
+    });
 
-    // await transporter.sendMail({
-    //   from: '"Newsletter" <your-email@gmail.com>',
-    //   to: 'nyxxintel@gmail.com',
-    //   subject: 'New Subscription',
-    //   text: `New subscriber: ${email}`,
-    // });
+    await transporter.sendMail({
+      from: '"Newsletter" <your-email@gmail.com>',
+      to: 'nyxxintel@gmail.com',
+      subject: 'New Subscription',
+      text: `New subscriber: ${email}`,
+    });
 
     return res.status(200).json({ message: 'Subscribed successfully!' });
   } catch (error) {
