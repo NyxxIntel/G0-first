@@ -5,9 +5,22 @@ import nodemailer from 'nodemailer';
 
 const mongoURI = "mongodb+srv://nyxxintel:FlCuOxSyRxhCx2hX@cluster0.zoatj.mongodb.net/newsletter?retryWrites=true&w=majority&appName=Cluster0";
 
-if (!mongoose.connections[0].readyState) {
-  mongoose.connect(mongoURI);
-}
+let isConnected = false;
+
+const connectDB = async () => {
+  if (isConnected) return; // Skip if already connected
+
+  try {
+    await mongoose.connect(mongoURI);
+    isConnected = true;
+    console.log("MongoDB connected successfully");
+  } catch (error) {
+    console.error("MongoDB connection error:", error);
+  }
+};
+
+// Call the function once during the first request
+connectDB();
 
 
 const subscriberSchema = new mongoose.Schema({
