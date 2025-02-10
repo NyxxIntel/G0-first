@@ -2,15 +2,13 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import mongoose from 'mongoose';
 import nodemailer from 'nodemailer';
 
-// MongoDB Connection
+
 const mongoURI = "mongodb+srv://nyxxintel:FlCuOxSyRxhCx2hX@cluster0.zoatj.mongodb.net/newsletter?retryWrites=true&w=majority&appName=Cluster0";
 
 if (!mongoose.connections[0].readyState) {
-  mongoose.connect(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  } as any);
+  mongoose.connect(mongoURI);
 }
+
 
 const subscriberSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
