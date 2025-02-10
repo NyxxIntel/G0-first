@@ -13,11 +13,27 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method Not Allowed' });
   }
+
   await connectDB();
   const { email } = req.body;
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return res.status(400).json({ message: 'Invalid email address.' });
+  }
+
+  // ✅ List of common personal email domains
+  const personalEmailDomains = [
+    "gmail.com", "yahoo.com", "hotmail.com", "outlook.com",
+    "aol.com", "icloud.com", "protonmail.com", "zoho.com",
+    "yandex.com", "mail.com", "live.com", "gmx.com", "me.com"
+  ];
+
+  // ✅ Extract domain from email
+  const emailDomain = email.split("@")[1].toLowerCase();
+
+  // ✅ Reject if the domain is in the personal email list
+  if (personalEmailDomains.includes(emailDomain)) {
+    return res.status(400).json({ message: "Please enter a business email address." });
   }
 
   try {
@@ -32,7 +48,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       service: 'gmail',
       auth: {
         user: 'nyxxintel@gmail.com',  // Replace with your email
-        pass: 'hmgc jiky vann tgfo',     // Use App Password (not your main password)
+        pass: 'hmgc jiky vann tgfo',  // Use App Password (not your main password)
       },
     });
 
@@ -49,3 +65,4 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(500).json({ message: 'Server error.' });
   }
 }
+

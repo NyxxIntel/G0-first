@@ -178,7 +178,7 @@ export const Mailchimp = ({ newsletter }: { newsletter: NewsletterProps }) => {
             fontSize: "0.875rem",
           }}
         >
-          {error}
+          {/* {error} */}
         </Text>
       )}
 
