@@ -48,20 +48,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     await new Subscriber({ email }).save();
 
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: 'nyxxintel@gmail.com',  // Replace with your email
-        pass: 'hmgc jiky vann tgfo',     // Use App Password (not your main password)
-      },
-    });
+    // const transporter = nodemailer.createTransport({
+    //   service: 'gmail',
+    //   auth: {
+    //     user: 'nyxxintel@gmail.com',  // Replace with your email
+    //     pass: 'hmgc jiky vann tgfo',     // Use App Password (not your main password)
+    //   },
+    // });
 
-    await transporter.sendMail({
-      from: '"Newsletter" <your-email@gmail.com>',
-      to: 'nyxxintel@gmail.com',
-      subject: 'New Subscription',
-      text: `New subscriber: ${email}`,
-    });
+    // await transporter.sendMail({
+    //   from: '"Newsletter" <your-email@gmail.com>',
+    //   to: 'nyxxintel@gmail.com',
+    //   subject: 'New Subscription',
+    //   text: `New subscriber: ${email}`,
+    // });
 
     return res.status(200).json({ message: 'Subscribed successfully!' });
   } catch (error) {
