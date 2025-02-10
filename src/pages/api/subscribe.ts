@@ -32,7 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const existingSubscriber = await Subscriber.findOne({ email });
     if (existingSubscriber) {
-      return res.status(200).json({ message: 'You are already subscribed.' });
+      return res.status(409).json({ message: 'You are already subscribed.' });  // ✅ Return 409 Conflict
     }
 
     await new Subscriber({ email }).save();

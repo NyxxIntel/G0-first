@@ -21,33 +21,33 @@ export const Mailchimp = ({ newsletter }: { newsletter: NewsletterProps }) => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value); // ✅ Just update the value without validation
+    setEmail(e.target.value);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setSuccess("");
-
-    // ✅ Validate only when the form is submitted
+  
     if (!validateEmail(email)) {
       setError("Please enter a valid email address.");
       return;
     }
-
+  
     try {
-      const res = await fetch("/api/subscribe", {
+      const res = await fetch(`/api/subscribe`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
-
+  
       const data = await res.json();
-      if (res.ok) {
+  
+      if (res.status === 200) {
         setSuccess("Successfully subscribed!");
         setEmail("");
+      } else if (res.status === 409) {  // ✅ Handle "already subscribed" correctly
+        setError("You are already subscribed.");
       } else {
         setError(data.message || "Something went wrong.");
       }
@@ -55,6 +55,7 @@ export const Mailchimp = ({ newsletter }: { newsletter: NewsletterProps }) => {
       setError("An error occurred. Please try again later.");
     }
   };
+  
 
   return (
     <Column
@@ -137,7 +138,7 @@ export const Mailchimp = ({ newsletter }: { newsletter: NewsletterProps }) => {
         style={{
           width: "100%",
           display: "flex",
-          flexDirection: "column", // ✅ Stack items vertically
+          flexDirection: "column",
           alignItems: "center",
         }}
         onSubmit={handleSubmit}
@@ -147,7 +148,7 @@ export const Mailchimp = ({ newsletter }: { newsletter: NewsletterProps }) => {
           fillWidth
           maxWidth={24}
           gap="8"
-          direction="column" // ✅ Stack vertically
+          direction="column"
           align="center"
         >
           <Input
@@ -159,7 +160,7 @@ export const Mailchimp = ({ newsletter }: { newsletter: NewsletterProps }) => {
             label="Email"
             required
             value={email}
-            onChange={handleChange} // ✅ Only updates value, no validation
+            onChange={handleChange}
             errorMessage={error}
           />
 

@@ -7,7 +7,7 @@ const person = {
     return `${this.firstName} ${this.lastName}`;
   },
   role: "Mastering the Unknowns with NyxxIntel",
-  avatar: "/images/android-chrome-192x192.png",
+  avatar: "/images/LOGO.png",
   location: "Asia/Kolkata", 
   languages: [], 
 };
