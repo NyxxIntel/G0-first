@@ -285,4 +285,35 @@ const gallery = {
   ],
 };
 
-export { person, social, newsletter, home, about, blog, servicesWeOffer, gallery };
+const login = {
+  label: "Login",
+  title: "Login",
+  description: `Meet ${person.name}, ${person.role} from ${person.location}`,
+  tableOfContent: {
+    display: true,
+    subItems: false,
+  },
+  avatar: {
+    display: true,
+  },
+  calendar: {
+    display: true,
+    link: "https://cal.com/nyxxintel-xcre0b",
+  },
+  intro: {
+    display: true,
+    title: "Introduction",
+    description: (
+      <>
+        To empower organizations with actionable threat intelligence, enabling proactive defense strategies, reducing risk, 
+        and safeguarding digital assets from evolving cyber threats. To be the global leader in cybersecurity threat intelligence, 
+        transforming the way businesses understand, anticipate, and combat cyber risks. Our goal is to foster a more secure digital ecosystem,
+        enabling organizations to operate with confidence and resilience.
+      </>
+    ),
+  },
+  
+
+};
+
+export { person, social, newsletter, home, about, blog, servicesWeOffer, gallery, login };
